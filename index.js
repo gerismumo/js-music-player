@@ -33,9 +33,13 @@ playAudio = () => {
         pauseTime = 0;
     }
     const audioFile = currentAudio.file.split('/').pop();
-    const currentAudioFile = audioFile.substring(0, audioFile.lastIndexOf('.'));
+    var currentAudioFile = audioFile.substring(0, audioFile.lastIndexOf('.'));
+    let maxLength = 30
+    if(currentAudioFile.length > maxLength) {
+        currentAudioFile = `${currentAudioFile.substring(0, maxLength)}...`;
+    }
     audioTitle.innerText =currentAudioFile;
-    // console.log(currentAudioFile);
+    console.log(currentAudioFile.length)
     audio.play();
     isPlaying = true;
     playBtn.style.display = 'none';
