@@ -9,12 +9,15 @@ const Audios = [
 
 const playBtn = document.getElementById('play');
 const pauseBtn = document.getElementById('pause');
+const prevBtn = document.getElementById('prev');
+const nextBtn = document.getElementById('next');
 
 const audio = new Audio();
 let currentAudioIndex = 0;
 let isPlaying = false;
 
 let pauseTime = 0;
+
 playAudio = () => {
     const currentAudio = Audios[currentAudioIndex];
     audio.src = currentAudio.file;
@@ -37,5 +40,30 @@ const PauseAudio = (audio) => {
     playBtn.style.display = 'inline-block';
 }
 
+const nextAudio = () => {
+    currentAudioIndex += 1; 
+    if(currentAudioIndex >= Audios.length) {
+        currentAudioIndex = 0;
+    }  
+
+    const currentAudio = Audios[currentAudioIndex];
+    audio.src = currentAudio;
+    playAudio();
+}
+
+const prevAudio = () => {
+    currentAudioIndex -= 1;
+
+    if(currentAudioIndex < 0) {
+        currentAudioIndex = Audios.length - 1;
+    }
+
+    const currentAudio = Audios[currentAudioIndex];
+    audio.src = currentAudio;
+    playAudio();
+}
+
 playBtn.addEventListener('click', playAudio);
 pauseBtn.addEventListener('click', () => PauseAudio(audio));
+nextBtn.addEventListener('click', () => nextAudio());
+prevBtn.addEventListener('click', () => prevAudio());

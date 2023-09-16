@@ -54,7 +54,9 @@ audio{
     outline: none;
     border: none;
     font-size: 20px;
-    /* background-color: black;
-    padding: 6px; */
+}
+
+#pause{
+    display: none;
 }
 
