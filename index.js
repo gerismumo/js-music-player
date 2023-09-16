@@ -11,6 +11,9 @@ const playBtn = document.getElementById('play');
 const pauseBtn = document.getElementById('pause');
 const prevBtn = document.getElementById('prev');
 const nextBtn = document.getElementById('next');
+const progressBar = document.querySelector('.progress');
+const prevSecBtn = document.getElementById('prevSecs');
+const nextSecBtn = document.getElementById('nextSecs');
 
 const audio = new Audio();
 let currentAudioIndex = 0;
@@ -63,7 +66,37 @@ const prevAudio = () => {
     playAudio();
 }
 
+audio.addEventListener('timeupdate', () => {
+    const currentTime = audio.currentTime;
+    const duration = audio.duration;
+    const progressTimeBar = (currentTime / duration) * 100;
+    progressBar.style.width = `${progressTimeBar}%`;
+    progressBar.style.backgroundColor = '#21b3ed';
+    progressBar.style.borderRadius = '5px';
+
+});
+
+const prevSeconds = () => {
+    audio.currentTime -= 15;
+
+    if(audio.currentTime === 0) {
+        // prevAudio();
+        audio.currentTime = 0;
+    }
+}
+
+const nextSeconds = () => {
+    audio.currentTime += 30;
+
+    if(audio.currentTime === audio.duration) {
+        // nextAudio();
+        audio.currentTime = 0;
+    }
+}
+
 playBtn.addEventListener('click', playAudio);
 pauseBtn.addEventListener('click', () => PauseAudio(audio));
 nextBtn.addEventListener('click', () => nextAudio());
 prevBtn.addEventListener('click', () => prevAudio());
+prevSecBtn.addEventListener('click', () => prevSeconds());
+nextSecBtn.addEventListener('click', () => nextSeconds());
