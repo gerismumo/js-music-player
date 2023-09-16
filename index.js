@@ -35,14 +35,16 @@ playAudio = () => {
     isPlaying = true;
     playBtn.style.display = 'none';
     pauseBtn.style.display = 'inline-block';
+    console.log (currentAudio.file);
 }
 
-const PauseAudio = (audio) => {
+const PauseAudio = () => {
     pauseTime = audio.currentTime;
     audio.pause();
     isPlaying = false;
     pauseBtn.style.display = 'none';
     playBtn.style.display = 'inline-block';
+    console.log(audio.src);
 }
 
 const nextAudio = () => {
@@ -168,11 +170,21 @@ volumeDown.addEventListener('click', () => {
         audio.volume = volume;
         volumeSlider.value = volume;
     }
+});
+
+document.addEventListener('keydown', (e) => {
+    if(e.code === "Space") {
+        if(isPlaying) {
+            PauseAudio();
+        } else {
+            playAudio();
+        }  
+    }
 })
 
 
 playBtn.addEventListener('click', playAudio);
-pauseBtn.addEventListener('click', () => PauseAudio(audio));
+pauseBtn.addEventListener('click', () => PauseAudio());
 nextBtn.addEventListener('click', () => nextAudio());
 prevBtn.addEventListener('click', () => prevAudio());
 prevSecBtn.addEventListener('click', () => prevSeconds());
