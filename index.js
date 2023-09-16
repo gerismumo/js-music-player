@@ -16,6 +16,7 @@ const prevSecBtn = document.getElementById('prevSecs');
 const nextSecBtn = document.getElementById('nextSecs');
 const repeatBtn = document.getElementById('repeat');
 const AudioBar = document.querySelector('.bar');
+const audioTitle = document.querySelector('.audio-title');
 
 const audio = new Audio();
 let currentAudioIndex = 0;
@@ -31,12 +32,16 @@ playAudio = () => {
         audio.currentTime = pauseTime;
         pauseTime = 0;
     }
+    const audioFile = currentAudio.file.split('/').pop();
+    const currentAudioFile = audioFile.substring(0, audioFile.lastIndexOf('.'));
+    audioTitle.innerText =currentAudioFile;
+    // console.log(currentAudioFile);
     audio.play();
     isPlaying = true;
     playBtn.style.display = 'none';
     pauseBtn.style.display = 'inline-block';
-    console.log (currentAudio.file);
 }
+
 
 const PauseAudio = () => {
     pauseTime = audio.currentTime;
@@ -44,7 +49,6 @@ const PauseAudio = () => {
     isPlaying = false;
     pauseBtn.style.display = 'none';
     playBtn.style.display = 'inline-block';
-    console.log(audio.src);
 }
 
 const nextAudio = () => {
