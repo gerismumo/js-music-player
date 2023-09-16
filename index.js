@@ -94,7 +94,7 @@ audio.addEventListener('timeupdate', () => {
     const duration = audio.duration;
     const progressTimeBar = (currentTime / duration) * 100;
     progressBar.style.width = `${progressTimeBar}%`;
-    progressBar.style.backgroundColor = '#21b3ed';
+    progressBar.style.backgroundColor = 'orangered';
     progressBar.style.borderRadius = '5px';
 
     currentTimeDisplay.innerText = formatTime(currentTime)

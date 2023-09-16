@@ -35,7 +35,7 @@
                 <div id="duration-time">00:00:00</div>
             </div>
             <div class="bottom-controls">
-                <div class="audio-title">
+                <div class="audio-title" data-tooltip="Now Playing">
 
                 </div>
                 <div class="audio-btns">
@@ -50,9 +50,12 @@
                     <button id="nextSecs" data-tooltip="Skip forward 30 seconds"><i class='fas fa-fast-forward'></i></button>             
                </div>
                <div class="volume-tabs">
-                    <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="1">
-                    <button id="volume-up"><i class="fa fa-plus"></i></button>
-                    <button id="volume-down"><i class="fa fa-minus"></i></button>
+                    <button id="audio-speaker" data-tooltip="volume"><i class='fas fa-volume-up'></i></button>
+                    <div class="speaker-options">
+                        <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="1">
+                        <button id="volume-up"><i class="fa fa-plus"></i></button>
+                        <button id="volume-down"><i class="fa fa-minus"></i></button>
+                    </div>  
                </div>
             </div>
         </div>
