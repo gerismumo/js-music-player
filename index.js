@@ -185,30 +185,45 @@ AudioBar.addEventListener('mousedown', (event) => {
 const volumeSlider = document.getElementById('volume-slider');
 const volumeUp = document.getElementById('volume-up');
 const volumeDown = document.getElementById('volume-down');
+const volumePercentage = document.querySelector('.volume-percentage');
 
 let volume = 1.0;
 volumeSlider.addEventListener('input', () => {
     volume = parseFloat(volumeSlider.value);
     audio.volume = volume;
+    volumePercentage.innerText = `${(volume * 100).toFixed(0)}`
 });
 
-volumeUp.addEventListener('click', () => {
-    if( volume < 1.0) {
-        volume += 0.1;
-        volume= Math.min(1.0, volume);
-        audio.volume = volume;
-        volumeSlider.value = volume;
-    }
+// volumeUp.addEventListener('click', () => {
+//     if( volume < 1.0) {
+//         volume += 0.1;
+//         volume= Math.min(1.0, volume);
+//         audio.volume = volume;
+//         volumeSlider.value = volume;
+//     }
+// });
+
+// volumeDown.addEventListener('click', () => {
+//     if(volume > 0.0) {
+//         volume -= 0.1;
+//         volume = Math.max(0.0, volume);
+//         audio.volume = volume;
+//         volumeSlider.value = volume;
+//     }
+// });
+
+const volumeBtn = document.getElementById('audio-speaker');
+const speakerOptions = document.querySelector('.speaker-options');
+
+volumeBtn.addEventListener('click',(e) => {
+    e.stopPropagation();
+    speakerOptions.classList.toggle('active');
 });
 
-volumeDown.addEventListener('click', () => {
-    if(volume > 0.0) {
-        volume -= 0.1;
-        volume = Math.max(0.0, volume);
-        audio.volume = volume;
-        volumeSlider.value = volume;
-    }
+document.addEventListener('click', () => {
+        speakerOptions.classList.remove('active');
 });
+
 
 document.addEventListener('keydown', (e) => {
     if(e.code === "Space") {
