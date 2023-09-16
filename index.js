@@ -140,7 +140,36 @@ AudioBar.addEventListener('mousedown', (event) => {
             audio.play();
         }
     })
+});
+
+const volumeSlider = document.getElementById('volume-slider');
+const volumeUp = document.getElementById('volume-up');
+const volumeDown = document.getElementById('volume-down');
+
+let volume = 1.0;
+volumeSlider.addEventListener('input', () => {
+    volume = parseFloat(volumeSlider.value);
+    audio.volume = volume;
+});
+
+volumeUp.addEventListener('click', () => {
+    if( volume < 1.0) {
+        volume += 0.1;
+        volume= Math.min(1.0, volume);
+        audio.volume = volume;
+        volumeSlider.value = volume;
+    }
+});
+
+volumeDown.addEventListener('click', () => {
+    if(volume > 0.0) {
+        volume -= 0.1;
+        volume = Math.max(0.0, volume);
+        audio.volume = volume;
+        volumeSlider.value = volume;
+    }
 })
+
 
 playBtn.addEventListener('click', playAudio);
 pauseBtn.addEventListener('click', () => PauseAudio(audio));
