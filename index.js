@@ -14,6 +14,8 @@ const nextBtn = document.getElementById('next');
 const progressBar = document.querySelector('.progress');
 const prevSecBtn = document.getElementById('prevSecs');
 const nextSecBtn = document.getElementById('nextSecs');
+const repeatBtn = document.getElementById('repeat');
+const AudioBar = document.querySelector('.bar');
 
 const audio = new Audio();
 let currentAudioIndex = 0;
@@ -94,9 +96,56 @@ const nextSeconds = () => {
     }
 }
 
+let previousAudioIndex = -1;
+
+const repeatAudio = () => {
+    if(previousAudioIndex !== -1) {
+        currentAudioIndex = previousAudioIndex;
+    } else {
+        if(isPlaying) {
+            currentAudioIndex -= 1;
+
+            if(currentAudioIndex < 0) {
+                currentAudioIndex = Audios.length - 1;
+            }
+        } else {
+            currentAudioIndex = 0;
+        }
+    }
+    const currentAudio = Audios[currentAudioIndex];
+    audio.src = currentAudio.file;
+    playAudio();
+    console.log(currentAudio.file);
+}
+
+updateAudioBar = (event) =>  {
+    const {offsetX} = event;
+    const progressBarAudio = progressBar.clientWidth;
+    const duration = audio.duration;
+    const currentTime = (offsetX / progressBarAudio) * duration;
+    audio.currentTime = currentTime;
+}
+
+AudioBar.addEventListener('mousedown', (event) => {
+    isPlaying = !audio.pause();
+    if(isPlaying){
+        audio.pause();
+    }
+    updateAudioBar(event);
+
+    document.addEventListener('mousemove', updateAudioBar);
+    document.addEventListener('mouseup', () => {
+        document.removeEventListener('mousemove', updateAudioBar);
+        if(isPlaying) {
+            audio.play();
+        }
+    })
+})
+
 playBtn.addEventListener('click', playAudio);
 pauseBtn.addEventListener('click', () => PauseAudio(audio));
 nextBtn.addEventListener('click', () => nextAudio());
 prevBtn.addEventListener('click', () => prevAudio());
 prevSecBtn.addEventListener('click', () => prevSeconds());
 nextSecBtn.addEventListener('click', () => nextSeconds());
+repeatBtn.addEventListener('click', () => repeatAudio());
