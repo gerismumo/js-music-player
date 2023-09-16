@@ -58,6 +58,14 @@ const nextAudio = () => {
     playAudio();
 }
 
+const followingAudio =  () => {
+    currentAudioIndex = (currentAudioIndex + 1) % Audios.length;
+    playAudio();
+}
+
+audio.addEventListener('ended', () =>{
+    followingAudio();
+})
 const prevAudio = () => {
     currentAudioIndex -= 1;
 
@@ -70,6 +78,9 @@ const prevAudio = () => {
     playAudio();
 }
 
+const currentTimeDisplay = document.getElementById('current-time');
+const durationTimeDisplay = document.getElementById('duration-time');
+
 audio.addEventListener('timeupdate', () => {
     const currentTime = audio.currentTime;
     const duration = audio.duration;
@@ -78,7 +89,26 @@ audio.addEventListener('timeupdate', () => {
     progressBar.style.backgroundColor = '#21b3ed';
     progressBar.style.borderRadius = '5px';
 
+    currentTimeDisplay.innerText = formatTime(currentTime)
+    durationTimeDisplay.innerText = formatTime(duration);
+
 });
+
+//format time here
+const formatTime = (time) => {
+    const hours = Math.floor(time / 3600);
+    const minutes = Math.floor((time % 3600) /60);
+    const seconds = Math.floor(time % 60);
+
+    const formattedHours = hours < 10 ? `0${hours}` : `${hours}`;
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
+    const formattedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+
+   
+    return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+    
+}
+
 
 const prevSeconds = () => {
     audio.currentTime -= 15;
